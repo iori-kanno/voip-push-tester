@@ -39,7 +39,7 @@ let retryCount = 0;
       exit(1);
     }
     await Promise.all([
-      checker.postLog(retryMessage),
+      checker.postLog(retryMessage.replace('{retryCount}', `${retryCount}`)),
       wait(retryInterval * 1000),
     ]);
   }

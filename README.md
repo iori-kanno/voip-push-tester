@@ -23,7 +23,7 @@ You will need to set the following items in your `.env`
 # Required
 # Calling number for notifications to be sent to your application.
 # see: https://www.twilio.com/docs/voice/api/outgoing-caller-ids
-OUTGOIN_CALL_PHONE_NUMBER="'to' prameter of Twilio"
+OUTGOIN_CALL_PHONE_NUMBER="'to' parameter of Twilio"
 # The phone number, SIP address, or client identifier to call.
 TWILIO_PHONE_NUMBER="'from' parameter of Twilio"
 TWILIO_ACCOUNT_SID="your twilio account sid"
@@ -48,7 +48,7 @@ You may also want to prepare the following `settings.json` if necessary
   "dotenvOverride": true,
   "maxRetries": 3,
   "retryInterval": 60,
-  "retryMessage": "⚠️ Wait {retryInterval} seconds and then run again because the logs could not be confirmed.",
+  "retryMessage": "⚠️ Wait {retryInterval} seconds and then run again because the logs could not be confirmed. ({retryCount}/{maxRetries})",
   "callTimeout": 20,
   "confirmLogRegex": "testing for (ios|android) incoming call from ([0-9]{3,4}-?){3}",
   "startMessage": "=== start ===",
@@ -62,7 +62,7 @@ You may also want to prepare the following `settings.json` if necessary
 }
 ```
 
-When you wish to use retryInterval in a retryMessage, you can replace it by `{retryInterval}`.
+When you wish to use retryInterval, maxRetries and count of retries in a retryMessage, you can replace them with `{retryInterval}`, `{maxRetries}` and `{retryCount}`.
 
 ## Usage
 
