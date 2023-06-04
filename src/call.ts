@@ -1,5 +1,6 @@
 import { Twilio } from 'twilio';
 import { appConfig } from './settings';
+import { logger } from './logger';
 
 const {
   OUTGOIN_CALL_PHONE_NUMBER: to,
@@ -16,11 +17,11 @@ const client = new Twilio(accountSid, authToken, {
 });
 
 export const call = async (timeout: number) => {
-  console.debug(
+  logger.debug(
     `Twilio.call: from ${from} to ${to} with a timeout of ${timeout} seconds`
   );
   if (appConfig.env.DRYRUN) {
-    console.log('Twilio.call: is not fired, because of DRYRUN MODE');
+    logger.log('Twilio.call: is not fired, because of DRYRUN MODE');
     return;
   }
   return client.calls
@@ -31,6 +32,6 @@ export const call = async (timeout: number) => {
       twiml: `<Response><Pause length="${timeout}"/></Response>`,
     })
     .then((call) => {
-      console.debug(`Twilio.call: SID ${call.sid}`);
+      logger.debug(`Twilio.call: SID ${call.sid}`);
     });
 };

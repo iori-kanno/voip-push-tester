@@ -1,6 +1,7 @@
 import { WebClient } from '@slack/web-api';
 import { Checkable, UniqueId } from '../types';
 import { appConfig } from '../../settings';
+import { logger } from '../../logger';
 
 const token = appConfig.env.SLACK_BOT_TOKEN;
 const loggingChannel = appConfig.settings.slack?.loggingChannelId;
@@ -11,14 +12,6 @@ let _client: WebClient;
 
 const getClient = () => {
   if (_client === undefined) {
-    if (token === undefined) {
-      throw new Error('SLACK_BOT_TOKEN is undefined. Please set it in .env');
-    }
-    if (loggingChannel === undefined) {
-      throw new Error(
-        'SLACK_CHANNEL_ID is undefined. Please set it in settings.json or .env'
-      );
-    }
     _client = new WebClient(token);
   }
   return _client;
@@ -37,10 +30,10 @@ const sendSlackMessage = async (message: string, channel?: string) => {
       channel: channel ?? loggingChannel,
       text: message,
     });
-    console.debug(result);
+    logger.debug(result);
     return result.ts;
   } catch (error) {
-    console.error(error);
+    logger.error(error);
   }
 };
 
@@ -49,7 +42,7 @@ const confirmLogs = async (ts: UniqueId) => {
     channel: loggingChannel,
     oldest: ts,
   });
-  console.debug(result);
+  logger.debug(result);
   if (result.messages === undefined) {
     return false;
   }

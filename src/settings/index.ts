@@ -1,3 +1,4 @@
+import { logger } from '../logger';
 import { AppConfig, Settings } from './types';
 import { validate } from './validater';
 
@@ -6,7 +7,7 @@ let _setting = {};
 try {
   _setting = require('../../settings.json');
 } catch (err) {
-  console.warn('WARN: Failed to read settings.json', err);
+  logger.warn('Failed to read settings.json', err);
 }
 
 const appName = _setting['appName'] ?? 'voip-push-tester';

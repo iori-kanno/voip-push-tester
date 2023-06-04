@@ -2,6 +2,7 @@ import { exit } from 'process';
 import { call } from './call';
 import { Checker } from './checker';
 import { appConfig } from './settings';
+import { logger } from './logger';
 
 const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -22,13 +23,13 @@ let retryCount = 0;
   const uniqId = await checker.postLog(startMessage);
 
   const fire = async (): Promise<boolean> => {
-    console.debug(`fire: ${retryCount + 1}`);
+    logger.debug(`fire: ${retryCount + 1}`);
 
     // Wait a little longer than the call timeout
     await Promise.all([call(callTimeout), wait(1.2 * callTimeout * 1000)]);
 
     const res = await checker.confirmLogs(uniqId);
-    console.debug('success: ' + res);
+    logger.debug('success: ' + res);
     return res;
   };
 
@@ -43,4 +44,5 @@ let retryCount = 0;
     ]);
   }
   await checker.postLog(endMessage);
+  logger.success('All done!');
 })();

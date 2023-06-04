@@ -8,6 +8,9 @@ dependencies:
   '@slack/web-api':
     specifier: ^6.8.1
     version: 6.8.1
+  colors:
+    specifier: ^1.4.0
+    version: 1.4.0
   twilio:
     specifier: ^4.11.1
     version: 4.11.1
@@ -165,6 +168,11 @@ packages:
     dependencies:
       function-bind: 1.1.1
       get-intrinsic: 1.2.1
+    dev: false
+
+  /colors@1.4.0:
+    resolution: {integrity: sha512-a+UqTh4kgZg/SlGvfbzDHpgRu7AAQOmmqRHJnxhRZICKFUT91brVhNNt58CMWU9PsBbv3PDCZUHbVxuDiH2mtA==}
+    engines: {node: '>=0.1.90'}
     dev: false
 
   /combined-stream@1.0.8:

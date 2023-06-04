@@ -1,3 +1,4 @@
+import { logger } from '../logger';
 import { appConfig } from '../settings';
 import { slack } from './slack';
 import { Checkable, CheckerType } from './types';
@@ -10,9 +11,9 @@ export class Checker implements Checkable {
   }
 
   alert: (message: string) => Promise<string> = async (message: string) => {
-    console.debug('Checker.alert: ' + message);
+    logger.debug('Checker.alert: ' + message);
     if (appConfig.env.DRYRUN) {
-      console.log(
+      logger.log(
         'Checker.alert: ' + message + ' is not fired, because of DRYRUN MODE'
       );
       return '';
@@ -21,9 +22,9 @@ export class Checker implements Checkable {
   };
 
   postLog: (log: string) => Promise<string> = async (log: string) => {
-    console.debug('Checker.postLog: ' + log);
+    logger.debug('Checker.postLog: ' + log);
     if (appConfig.env.DRYRUN) {
-      console.log(
+      logger.log(
         'Checker.postLog: ' + log + ' is not fired, because of DRYRUN MODE'
       );
       return '';
@@ -32,9 +33,9 @@ export class Checker implements Checkable {
   };
 
   confirmLogs: (id: string) => Promise<boolean> = async (id: string) => {
-    console.debug('Checker.confirmLogs: ' + id);
+    logger.debug('Checker.confirmLogs: ' + id);
     if (appConfig.env.DRYRUN) {
-      console.log(
+      logger.log(
         'Checker.confirmLogs: ' + id + ' is not fired, because of DRYRUN MODE'
       );
       return appConfig.env.IS_CONFIRMED;
