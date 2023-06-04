@@ -1,4 +1,5 @@
 import { AppConfig, Settings } from './types';
+import { validate } from './validater';
 
 let _setting = {};
 
@@ -53,3 +54,5 @@ export const appConfig: AppConfig = {
       (process.env.IS_CONFIRMED || '').toLocaleLowerCase() === 'true',
   },
 };
+
+validate(appConfig);
